@@ -1,0 +1,11 @@
+image: python:3.6
+pipelines:
+  default:
+    - step:
+        name: Build BETA Docker image
+        script:
+          - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
+          - docker build -t youngliving/maintenance-page:BETA-$BITBUCKET_BRANCH.$BITBUCKET_BUILD_NUMBER .
+          - docker push youngliving/maintenance-page:BETA-$BITBUCKET_BRANCH.$BITBUCKET_BUILD_NUMBER
+        services:
+          - docker
